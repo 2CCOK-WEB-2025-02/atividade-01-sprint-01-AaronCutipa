@@ -4,11 +4,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.*;
+
 @RestController
 public class ExercicioDificilController {
 
     @GetMapping("/ex-03/{n}")
-    public ExercicioDificilResponse exercicioDificil(int n) {
-        return null;
+    public ExercicioDificilResponse exercicioDificil(@PathVariable int n) {
+        if(n <= 0){
+            return new ExercicioDificilResponse(0, 0);
+        }
+
+        int a = 0;
+        int b = 1;
+        int soma  = 1;
+        int enesimo = 1;
+
+        if(n == 1){
+            return new ExercicioDificilResponse(1, 1);
+        }
+
+        for(int i = 2; i <= n; i++){
+            enesimo = a + b;
+            soma += enesimo;
+            a = b;
+            b = enesimo;
+        }
+
+        return new ExercicioDificilResponse(enesimo, soma);
     }
 }
